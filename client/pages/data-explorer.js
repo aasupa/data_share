@@ -299,7 +299,7 @@ const DataExplorer = () => {
     if (!datasetId) return;
 
     try {
-      const response = await axios.get(`http://localhost:3001/api/dataset/${datasetId}`);
+      const response = await axios.get(`https://deploy-data-share-server.vercel.app/${datasetId}`);
       const data = response.data.data;
 
       setDatasetData(data);
@@ -336,7 +336,7 @@ const DataExplorer = () => {
   const saveTableData = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:3001/api/dataset/update-dataset/${datasetId}`,
+        `https://deploy-data-share-server.vercel.app/api/dataset/update-dataset/${datasetId}`,
         { data: editableData },
         {
           headers: {
