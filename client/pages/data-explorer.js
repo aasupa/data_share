@@ -299,7 +299,7 @@ const DataExplorer = () => {
     if (!datasetId) return;
 
     try {
-      const response = await axios.get(`https://deploy-data-share-server.vercel.app/${datasetId}`);
+      const response = await axios.get(`https://deploy-data-share-server.vercel.app/api/dataset/${datasetId}`);
       const data = response.data.data;
 
       setDatasetData(data);
