@@ -27,8 +27,12 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json())
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
-app.use(cors({ origin: 'http://localhost:3000' }));
-app.get("/api/home", (req,res)=>{
+app.use(cors({ origin: '' },
+            methods:{"POST", "GET"},
+            credentials: true
+            ));
+
+app.get("/", (req,res)=>{
     res.json({ message: "Hello World!"});
 });
 app.use('/api/files', fileRoutes);
