@@ -4,7 +4,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import multer from "multer";
 import path from "path";
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -14,7 +13,6 @@ import Folder from "./models/folder.js"
 import fileRoutes from "./routes/files.js";
 import datasetRoutes from "./routes/datasetRoutes.js";
 import elementRoutes from './routes/elementRoutes.js';
-import fs from 'fs';
 import bodyParser from 'body-parser';
 
 dotenv.config();
