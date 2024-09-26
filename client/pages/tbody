@@ -1,0 +1,52 @@
+<tbody>
+          {editableData.length > 0 ? (
+            editableData.map((item, index) => (
+              <tr key={index}>
+                <td>
+                  <a href={item.postUrl} target="_blank" rel="noopener noreferrer">
+                    {item.postUrl}
+                  </a>
+                </td>
+                <td>{item.id}</td>
+                {/* Editable Text field */}
+                <td>
+                  <input
+                    type="text"
+                    value={item.text || 'N/A'}
+                    onChange={(e) => handleEdit(index, 'text', e.target.value)}
+                  />
+                </td>
+                {/* Editable Owner Username field */}
+                <td>
+                  <input
+                    type="text"
+                    value={item.ownerUsername || 'N/A'}
+                    onChange={(e) => handleEdit(index, 'ownerUsername', e.target.value)}
+                  />
+                </td>
+                {/* Editable Likes Count field */}
+                <td>
+                  <input
+                    type="number"
+                    value={item.likesCount}
+                    onChange={(e) => handleEdit(index, 'likesCount', e.target.value)}
+                  />
+                </td>
+                {/* Render input fields for dynamically added columns */}
+                {newColumns.map((col, colIndex) => (
+                  <td key={colIndex}>
+                    <input
+                      type="text"
+                      value={item[col] || ''}
+                      onChange={(e) => handleEdit(index, col, e.target.value)}
+                    />
+                  </td>
+                ))}
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5">No matching data found</td>
+            </tr>
+          )}
+        </tbody>

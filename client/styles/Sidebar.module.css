@@ -1,0 +1,42 @@
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  background-color: #1a202c;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.menuItems {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menuItems li {
+  padding: 20px;
+  text-align: left;
+}
+
+.bottomItem {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.bottomItem li {
+  padding: 20px;
+  text-align: left;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+}
+
+.sidebar a:hover {
+  background-color: #2d3748;
+  padding-left: 10px;
+}

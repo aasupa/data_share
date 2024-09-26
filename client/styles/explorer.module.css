@@ -1,0 +1,139 @@
+/* Container styling */
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling */
+.title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 2.2em;
+}
+
+/* Input styling */
+.input, .inputSmall {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 50%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+/* Small input fields */
+.inputSmall {
+  width: 60px;
+}
+
+/* Button styling */
+.button {
+  padding: 8px 10px;
+  margin: 10px;
+  background-color: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+/* Button styling for JSON download */
+.button.json {
+  background-color: #006400;
+}
+
+.button.json:hover {
+  background-color: #004b23;
+}
+
+/* Button styling for CSV download */
+.button.csv {
+  background-color: #FF8C00;
+}
+
+.button.csv:hover {
+  background-color: #c05621;
+}
+
+/* Table styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.th, .td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.th {
+  background-color: #e0e0e0;;
+  color: black;
+  font-weight: bold;
+}
+
+.td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Table input fields */
+.table td input {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  line-height: 1.5;
+  font-size: 1rem;
+  color: #333;
+}
+
+.table td input:focus {
+  outline: none;
+}
+
+.table td input::placeholder {
+  color: #999;
+}
+
+/* Download button container */
+.buttonContainer {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+/* Link styling */
+.link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
