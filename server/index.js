@@ -32,7 +32,7 @@ app.use(cors({ origin: 'http://deploy-data-share.vercel.app' },
             credentials: true
             ));
 
-app.get("/api/home", (req,res)=>{
+app.get("/", (req,res)=>{
     res.json({ message: "Hello World!"});
 });
 app.use('/api/files', fileRoutes);
