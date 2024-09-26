@@ -27,7 +27,11 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json())
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'http://deploy-data-share.vercel.app' },
+            methods:{"POST", "GET"},
+            credentials: true
+            ));
+
 app.get("/api/home", (req,res)=>{
     res.json({ message: "Hello World!"});
 });
