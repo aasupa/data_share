@@ -28,7 +28,8 @@ app.use(express.json())
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.use(cors({ origin: 'https://deploy-data-share.vercel.app' },
-            methods:['POST', 'GET'],
+            methods:['POST', 'GET', 'PUT', 'DELETE', 'OPTIONS'],
+            allowedHeaders: ['Content-Type', 'Authorization'],
             credentials: true
             ));
 
