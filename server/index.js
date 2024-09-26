@@ -25,7 +25,6 @@ const __dirname = dirname(__filename);
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json())
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.use(cors({ origin: 'https://deploy-data-share.vercel.app' ,
             methods:['POST', 'GET', 'PUT', 'DELETE', 'OPTIONS'],
@@ -148,26 +147,9 @@ app.get('/api/filter', async (req, res) => {
 // Delete a folder along with its files
 
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    const folderPath = `uploads`;
-    fs.mkdirSync(folderPath, { recursive: true });
-    cb(null, folderPath);
-  },
-  filename: function (req, file, cb) {
-    const ext = path.extname(file.originalname);
-    cb(null, `${Date.now()}-${file.originalname}`);
-  },
-});
 
 
-const upload = multer({ storage: storage });
 
-
-app.get('/api/filess', async (req, res) => {
-  const files = await File.find().populate('uploader', 'username').exec();
-  res.json(files);
-});
 
 
 
