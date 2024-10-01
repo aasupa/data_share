@@ -135,7 +135,7 @@ const DataProcessing = () => {
   useEffect(() => {
     const fetchDatasetIds = async () => {
       try {
-        const response = await axios.get('https://deploy-data-share-server.vercel.app/api/datasets/ids');
+        const response = await axios.get('http://localhost:3001/api/datasets/ids');
         setDatasetIds(response.data); // Assuming the API returns an array of objects with _id and datasetId
       } catch (error) {
         console.error('Error fetching dataset IDs:', error);
@@ -145,7 +145,7 @@ const DataProcessing = () => {
     // Fetch created elements (history)
     const fetchCreatedElements = async () => {
       try {
-        const response = await axios.get('https://deploy-data-share-server.vercel.app/api/elements');
+        const response = await axios.get('http://localhost:3001/api/elements');
         setElementsTable(response.data); // Assuming the API returns an array of created elements
       } catch (error) {
         console.error('Error fetching created elements:', error);
@@ -178,7 +178,7 @@ const DataProcessing = () => {
 
       try {
         // Send the new element to the backend to store it in the database
-        await axios.post('https://deploy-data-share-server.vercel.app/api/elements', newElement);
+        await axios.post('http://localhost:3001/api/elements', newElement);
         
         // Update the table locally (after successful backend save)
         setElementsTable([...elementsTable, newElement]);

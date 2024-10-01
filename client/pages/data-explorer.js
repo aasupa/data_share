@@ -153,7 +153,7 @@
 
 //       {/* Add Download Buttons */}
 //       {editableData.length > 0 && (
-//         <div>
+//         <div className={styles.buttonContainer}>
 //           <button className={styles.button} onClick={downloadAsJSON}>Download as JSON</button>
 //           <button className={styles.button} onClick={downloadAsCSV}>Download as CSV</button>
 //         </div>
@@ -294,12 +294,27 @@ const DataExplorer = () => {
   const [startPoint, setStartPoint] = useState(1);
   const [endPoint, setEndPoint] = useState(10);
   const [viewAll, setViewAll] = useState(false);
+  const [datasetOptions, setDatasetOptions] = useState([]);
+
+  // Fetch dataset IDs from the backend and populate dropdown
+  useEffect(() => {
+    const fetchDatasetIds = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/api/datasets/ids');
+        setDatasetOptions(response.data); // Assuming the response is an array of objects with _id and name
+      } catch (error) {
+        console.error('Error fetching dataset IDs:', error);
+      }
+    };
+
+    fetchDatasetIds();
+  }, []);
 
   const fetchDatasetData = async () => {
     if (!datasetId) return;
 
     try {
-      const response = await axios.get(`https://deploy-data-share-server.vercel.app/api/dataset/${datasetId}`);
+      const response = await axios.get(`http://localhost:3001/api/dataset/${datasetId}`);
       const data = response.data.data;
 
       setDatasetData(data);
@@ -325,41 +340,6 @@ const DataExplorer = () => {
       item.ownerUsername?.toLowerCase().includes(value)
     );
     setEditableData(filtered);
-  };
-
-  const handleEdit = (index, key, value) => {
-    const updatedData = [...editableData];
-    updatedData[index][key] = value;
-    setEditableData(updatedData);
-  };
-
-  const saveTableData = async () => {
-    try {
-      const response = await axios.put(
-        `https://deploy-data-share-server.vercel.app/api/dataset/update-dataset/${datasetId}`,
-        { data: editableData },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      console.log('Dataset updated successfully:', response.data);
-    } catch (error) {
-      console.error('Error saving updated data:', error);
-    }
-  };
-
-  const addNewColumn = () => {
-    const columnName = prompt('Enter the name of the new column:');
-    if (!columnName) return;
-
-    setNewColumns([...newColumns, columnName]);
-    const updatedData = editableData.map(item => ({
-      ...item,
-      [columnName]: '' // Initialize the new column with an empty string
-    }));
-    setEditableData(updatedData);
   };
 
   // Handle Start and End Points
@@ -411,16 +391,38 @@ const DataExplorer = () => {
     <div className={styles.container}>
       <h1 className={styles.title}>Data Explorer</h1>
 
-      <input
-        type="text"
-        className={styles.input}
-        placeholder="Enter dataset ID"
-        value={datasetId}
-        onChange={handleDatasetIdChange}
-      />
-      <button className={styles.button} onClick={fetchDatasetData}>
-        Search Dataset
-      </button>
+      <div className={styles.inputGroup}>
+        {/* Single box for both input and dropdown */}
+        <div className={styles.singleInputBox}>
+          {/* Search Input */}
+          <input
+            type="text"
+            className={styles.input}
+            placeholder="Enter dataset ID or filter"
+            value={datasetId}
+            onChange={handleDatasetIdChange}
+          />
+
+          {/* Dropdown Button for Dataset Selection */}
+          <select 
+            className={styles.dropdown} 
+            value={datasetId}
+            onChange={handleDatasetIdChange}
+          >
+            <option value="">Select a dataset</option>
+            {datasetOptions.map(dataset => (
+              <option key={dataset._id} value={dataset.datasetId}>
+                {dataset.datasetId}
+              </option>
+            ))}
+          </select>
+        </div>
+        
+        {/* Search Button */}
+        <button className={styles.button} onClick={fetchDatasetData}>
+          Search Dataset
+        </button>
+      </div>
 
       {/* Add Download Buttons */}
       {editableData.length > 0 && (
@@ -428,16 +430,6 @@ const DataExplorer = () => {
           <button className={styles.button} onClick={downloadAsJSON}>Download as JSON</button>
           <button className={styles.button} onClick={downloadAsCSV}>Download as CSV</button>
         </div>
-      )}
-
-      <button className={styles.button} onClick={addNewColumn} style={{ display: 'block' }}>
-        Add New Column
-      </button>
-
-      {editableData.length > 0 && (
-        <button className={styles.button} style={{ display: 'block' }} onClick={saveTableData}>
-          Save Changes
-        </button>
       )}
 
       <label className={styles.label}>
@@ -489,46 +481,18 @@ const DataExplorer = () => {
                   </a>
                 </td>
                 <td className={styles.td}>{item.id}</td>
-                <td className={styles.td}>
-                  <input
-                    type="text"
-                    value={item.text || ''}
-                    onChange={(e) => handleEdit(index, 'text', e.target.value)}
-                    className={styles.input}
-                  />
-                </td>
-                <td className={styles.td}>
-                  <input
-                    type="text"
-                    value={item.ownerUsername || ''}
-                    onChange={(e) => handleEdit(index, 'ownerUsername', e.target.value)}
-                    className={styles.input}
-                  />
-                </td>
-                <td className={styles.td}>
-                  <input
-                    type="number"
-                    value={item.likesCount || 0}
-                    onChange={(e) => handleEdit(index, 'likesCount', e.target.value)}
-                    className={styles.input}
-                  />
-                </td>
+                <td className={styles.td}>{item.text}</td>
+                <td className={styles.td}>{item.ownerUsername}</td>
+                <td className={styles.td}>{item.likesCount}</td>
                 {newColumns.map((col, colIndex) => (
-                  <td key={colIndex} className={styles.td}>
-                    <input
-                      type="text"
-                      value={item[col] || ''}
-                      onChange={(e) => handleEdit(index, col, e.target.value)}
-                      className={styles.input}
-                    />
-                  </td>
+                  <td key={colIndex} className={styles.td}>{item[col]}</td>
                 ))}
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="6" className={styles.td}>
-                No data available
+              <td colSpan={newColumns.length + 5} className={styles.noDataMessage}>
+                No data available. Please enter a valid dataset ID or check the dataset data.
               </td>
             </tr>
           )}
