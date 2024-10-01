@@ -61,7 +61,7 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('http://localhost:3001/api/login', { username, password });
+      const { data } = await axios.post('https://deploy-data-share-server.vercel.app/api/login', { username, password });
       localStorage.setItem('token', data.token);
       localStorage.setItem('username', data.username); // Store the username
       router.push('/dashboard');
