@@ -300,7 +300,7 @@ const DataExplorer = () => {
   useEffect(() => {
     const fetchDatasetIds = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/datasets/ids');
+        const response = await axios.get('https://deploy-data-share-server.vercel.app/api/datasets/ids');
         setDatasetOptions(response.data); // Assuming the response is an array of objects with _id and name
       } catch (error) {
         console.error('Error fetching dataset IDs:', error);
@@ -314,7 +314,7 @@ const DataExplorer = () => {
     if (!datasetId) return;
 
     try {
-      const response = await axios.get(`http://localhost:3001/api/dataset/${datasetId}`);
+      const response = await axios.get(`https://deploy-data-share-server.vercel.app/api/dataset/${datasetId}`);
       const data = response.data.data;
 
       setDatasetData(data);
