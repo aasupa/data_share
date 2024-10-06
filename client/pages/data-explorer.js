@@ -486,7 +486,7 @@ const DataExplorer = () => {
   useEffect(() => {
     const fetchDatasetFiles = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/datasets/s3/files');
+        const response = await axios.get('https://deploy-data-share-server.vercel.app/api/datasets/s3/files');
         setDatasetFiles(response.data);
       } catch (error) {
         console.error('Error fetching dataset files:', error);
@@ -500,7 +500,7 @@ const DataExplorer = () => {
     if (!selectedFile) return;
 
     try {
-      const response = await axios.get(`http://localhost:3001/api/datasets/s3/files/${selectedFile}`);
+      const response = await axios.get(`https://deploy-data-share-server.vercel.app/api/datasets/s3/files/${selectedFile}`);
       const data = response.data;
 
       // Check if data is an array and set it accordingly
