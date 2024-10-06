@@ -501,8 +501,8 @@ const DataExplorer = () => {
     if (!selectedFile) return;
 
     try {
-      const response = await axios.get(`http://localhost:3001/api/datasets/s3/files/${selectedFile}`);
-      const data = response.data;
+      const response = await axios.get(`http://localhost:3001/api/dataset/${datasetId}`);
+      const data = response.data.data;
 
       // Check if data is an array and set it accordingly
       if (Array.isArray(data)) {

@@ -9,7 +9,7 @@ const Dashboard = () => {
   useEffect(() => {  
     const fetchTotalFiles = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/files/total-files'); // Update with your backend URL
+        const response = await axios.get('https://deploy-data-share-server.vercel.app/api/files/total-files'); // Update with your backend URL
         setTotalFiles(response.data.totalFiles);
       } catch (error) {
         console.error('Error fetching total files:', error);
